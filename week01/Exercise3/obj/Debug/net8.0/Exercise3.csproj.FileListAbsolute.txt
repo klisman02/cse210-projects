@@ -1,0 +1,15 @@
+C:\Users\NOTE\Desktop\cse210-projects\week01\Exercise3\bin\Debug\net8.0\Exercise3.exe
+C:\Users\NOTE\Desktop\cse210-projects\week01\Exercise3\bin\Debug\net8.0\Exercise3.deps.json
+C:\Users\NOTE\Desktop\cse210-projects\week01\Exercise3\bin\Debug\net8.0\Exercise3.runtimeconfig.json
+C:\Users\NOTE\Desktop\cse210-projects\week01\Exercise3\bin\Debug\net8.0\Exercise3.dll
+C:\Users\NOTE\Desktop\cse210-projects\week01\Exercise3\bin\Debug\net8.0\Exercise3.pdb
+C:\Users\NOTE\Desktop\cse210-projects\week01\Exercise3\obj\Debug\net8.0\Exercise3.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\NOTE\Desktop\cse210-projects\week01\Exercise3\obj\Debug\net8.0\Exercise3.AssemblyInfoInputs.cache
+C:\Users\NOTE\Desktop\cse210-projects\week01\Exercise3\obj\Debug\net8.0\Exercise3.AssemblyInfo.cs
+C:\Users\NOTE\Desktop\cse210-projects\week01\Exercise3\obj\Debug\net8.0\Exercise3.csproj.CoreCompileInputs.cache
+C:\Users\NOTE\Desktop\cse210-projects\week01\Exercise3\obj\Debug\net8.0\Exercise3.sourcelink.json
+C:\Users\NOTE\Desktop\cse210-projects\week01\Exercise3\obj\Debug\net8.0\Exercise3.dll
+C:\Users\NOTE\Desktop\cse210-projects\week01\Exercise3\obj\Debug\net8.0\refint\Exercise3.dll
+C:\Users\NOTE\Desktop\cse210-projects\week01\Exercise3\obj\Debug\net8.0\Exercise3.pdb
+C:\Users\NOTE\Desktop\cse210-projects\week01\Exercise3\obj\Debug\net8.0\Exercise3.genruntimeconfig.cache
+C:\Users\NOTE\Desktop\cse210-projects\week01\Exercise3\obj\Debug\net8.0\ref\Exercise3.dll
