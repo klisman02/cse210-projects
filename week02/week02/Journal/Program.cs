@@ -4,6 +4,9 @@ using System.IO;
 using System.Text.Json;
 using System.Text;
 
+/// <summary>
+/// Represents a single entry in the journal.
+/// </summary>
 class Entry
 {
     public DateTime Timestamp { get; set; }
@@ -12,11 +15,20 @@ class Entry
     public string Mood { get; set; } // 😊 😐 😢
 }
 
+/// <summary>
+/// Manages a collection of journal entries, providing functionalities like adding, displaying, saving, loading, and searching.
+/// </summary>
 class Journal
 {
     private List<Entry> entries = new List<Entry>();
     private static Random rng = new Random();
 
+    /// <summary>
+    /// Adds a new entry to the journal with the current timestamp.
+    /// </summary>
+    /// <param name="prompt">The prompt or question for the entry.</param>
+    /// <param name="response">The user's response to the prompt.</param>
+    /// <param name="mood">The user's mood for the entry (e.g., 😊 😐 😢).</param>
     public void AddEntry(string prompt, string response, string mood)
     {
         entries.Add(new Entry
@@ -28,6 +40,9 @@ class Journal
         });
     }
 
+    /// <summary>
+    /// Displays all entries currently stored in the journal to the console.
+    /// </summary>
     public void DisplayAll()
     {
         foreach (var entry in entries)
@@ -36,12 +51,20 @@ class Journal
         }
     }
 
+    /// <summary>
+    /// Saves all current journal entries to a JSON file.
+    /// </summary>
+    /// <param name="filename">The name of the JSON file to save to.</param>
     public void SaveToJson(string filename)
     {
         string json = JsonSerializer.Serialize(entries, new JsonSerializerOptions { WriteIndented = true });
         File.WriteAllText(filename, json);
     }
 
+    /// <summary>
+    /// Loads journal entries from a JSON file, overwriting any existing entries.
+    /// </summary>
+    /// <param name="filename">The name of the JSON file to load from.</param>
     public void LoadFromJson(string filename)
     {
         if (File.Exists(filename))
@@ -51,13 +74,19 @@ class Journal
         }
     }
 
+    /// <summary>
+    /// Saves all current journal entries to a CSV file.
+    /// Handles commas and newlines in prompts and responses for proper CSV formatting.
+    /// </summary>
+    /// <param name="filename">The name of the CSV file to save to.</param>
     public void SaveToCsv(string filename)
     {
         StringBuilder sb = new StringBuilder();
-        sb.AppendLine("Timestamp,Mood,Prompt,Response");
+        sb.AppendLine("Timestamp,Mood,Prompt,Response"); // CSV header
 
         foreach (var entry in entries)
         {
+            // Escape double quotes and replace newlines for CSV compatibility
             string safePrompt = entry.Prompt.Replace("\"", "\"\"");
             string safeResponse = entry.Response.Replace("\"", "\"\"").Replace("\n", " ");
             sb.AppendLine($"\"{entry.Timestamp}\",\"{entry.Mood}\",\"{safePrompt}\",\"{safeResponse}\"");
@@ -66,6 +95,11 @@ class Journal
         File.WriteAllText(filename, sb.ToString());
     }
 
+    /// <summary>
+    /// Searches for entries containing a specific keyword in either the prompt or response.
+    /// The search is case-insensitive.
+    /// </summary>
+    /// <param name="keyword">The keyword to search for.</param>
     public void SearchByKeyword(string keyword)
     {
         foreach (var entry in entries)
@@ -78,96 +112,112 @@ class Journal
         }
     }
 
+    /// <summary>
+    /// Searches for entries recorded on a specific date.
+    /// </summary>
+    /// <param name="date">The date to search for.</param>
     public void SearchByDate(DateTime date)
     {
         foreach (var entry in entries)
         {
-            if (entry.Timestamp.Date == date.Date)
+            if (entry.Timestamp.Date == date.Date) // Compare only the date part
             {
                 Console.WriteLine($"[{entry.Timestamp}] {entry.Mood} - {entry.Prompt}\n{entry.Response}\n");
             }
         }
     }
 
+    /// <summary>
+    /// Displays a random entry from the journal.
+    /// </summary>
     public void ShowRandomEntry()
     {
         if (entries.Count == 0)
         {
-            Console.WriteLine("Nenhuma entrada para mostrar.");
+            Console.WriteLine("No entries to display.");
             return;
         }
 
-        var entry = entries[rng.Next(entries.Count)];
-        Console.WriteLine($"📖 Flashback de [{entry.Timestamp}]: {entry.Mood} - {entry.Prompt}\n{entry.Response}\n");
+        var entry = entries[rng.Next(entries.Count)]; // Get a random entry
+        Console.WriteLine($"📖 Flashback from [{entry.Timestamp}]: {entry.Mood} - {entry.Prompt}\n{entry.Response}\n");
     }
 
+    /// <summary>
+    /// Displays statistics about the journal, including total entries, entries by month, and most frequent mood.
+    /// </summary>
     public void ShowStats()
     {
-        Console.WriteLine($"📊 Total de entradas: {entries.Count}");
+        Console.WriteLine($"📊 Total entries: {entries.Count}");
 
-        var porMes = new Dictionary<string, int>();
-        var humorContagem = new Dictionary<string, int>();
+        var entriesByMonth = new Dictionary<string, int>();
+        var moodCount = new Dictionary<string, int>();
 
         foreach (var e in entries)
         {
-            string mes = e.Timestamp.ToString("yyyy-MM");
-            if (!porMes.ContainsKey(mes)) porMes[mes] = 0;
-            porMes[mes]++;
+            string month = e.Timestamp.ToString("yyyy-MM"); // Format date to year-month
+            if (!entriesByMonth.ContainsKey(month)) entriesByMonth[month] = 0;
+            entriesByMonth[month]++;
 
-            if (!humorContagem.ContainsKey(e.Mood)) humorContagem[e.Mood] = 0;
-            humorContagem[e.Mood]++;
+            if (!moodCount.ContainsKey(e.Mood)) moodCount[e.Mood] = 0;
+            moodCount[e.Mood]++;
         }
 
-        Console.WriteLine("Entradas por mês:");
-        foreach (var kv in porMes)
-            Console.WriteLine($"  {kv.Key}: {kv.Value}");
+        Console.WriteLine("Entries by month:");
+        foreach (var kv in entriesByMonth)
+            Console.WriteLine($"   {kv.Key}: {kv.Value}");
 
-        Console.WriteLine("Humor mais frequente:");
-        foreach (var kv in humorContagem)
-            Console.WriteLine($"  {kv.Key}: {kv.Value}");
+        Console.WriteLine("Most frequent mood:");
+        foreach (var kv in moodCount)
+            Console.WriteLine($"   {kv.Key}: {kv.Value}");
     }
 }
 
+/// <summary>
+/// The main program class that runs the digital journal application.
+/// </summary>
 class Program
 {
     static void Main(string[] args)
     {
         Journal journal = new Journal();
-        string filenameJson = "diario.json";
-        bool sair = false;
+        string filenameJson = "journal.json"; // Default JSON filename
+        bool exit = false;
 
-        Console.WriteLine("Bem-vindo ao Diário Digital! 📝");
+        Console.WriteLine("Welcome to your Digital Journal! 📝");
 
-        while (!sair)
+        // Main application loop
+        while (!exit)
         {
+            // Display menu options
             Console.WriteLine("\nMenu:");
-            Console.WriteLine("1. Escrever nova entrada");
-            Console.WriteLine("2. Mostrar todas as entradas");
-            Console.WriteLine("3. Salvar em JSON");
-            Console.WriteLine("4. Carregar de JSON");
-            Console.WriteLine("5. Salvar em CSV");
-            Console.WriteLine("6. Buscar por palavra-chave");
-            Console.WriteLine("7. Buscar por data");
-            Console.WriteLine("8. Relembrar uma entrada aleatória");
-            Console.WriteLine("9. Ver estatísticas");
-            Console.WriteLine("0. Sair");
-            Console.Write("Escolha uma opção: ");
-            string opcao = Console.ReadLine();
+            Console.WriteLine("1. Write a new entry");
+            Console.WriteLine("2. Show all entries");
+            Console.WriteLine("3. Save to JSON");
+            Console.WriteLine("4. Load from JSON");
+            Console.WriteLine("5. Save to CSV");
+            Console.WriteLine("6. Search by keyword");
+            Console.WriteLine("7. Search by date");
+            Console.WriteLine("8. Recall a random entry");
+            Console.WriteLine("9. View statistics");
+            Console.WriteLine("0. Exit");
+            Console.Write("Choose an option: ");
+            string option = Console.ReadLine(); // Read user input
 
-            switch (opcao)
+            // Process user's choice
+            switch (option)
             {
                 case "1":
-                    Console.Write("Escreva seu prompt: ");
+                    Console.Write("Write your prompt: ");
                     string prompt = Console.ReadLine();
 
-                    Console.Write("Sua resposta: ");
-                    string resposta = Console.ReadLine();
+                    Console.Write("Your response: ");
+                    string response = Console.ReadLine();
 
-                    Console.Write("Como você se sente hoje? 😊 😐 😢: ");
-                    string humor = Console.ReadLine();
+                    Console.Write("How do you feel today? 😊 😐 😢: ");
+                    string mood = Console.ReadLine();
 
-                    journal.AddEntry(prompt, resposta, humor);
-                    Console.WriteLine("✅ Entrada adicionada!");
+                    journal.AddEntry(prompt, response, mood);
+                    Console.WriteLine("✅ Entry added!");
                     break;
 
                 case "2":
@@ -176,36 +226,36 @@ class Program
 
                 case "3":
                     journal.SaveToJson(filenameJson);
-                    Console.WriteLine("💾 Diário salvo em JSON.");
+                    Console.WriteLine("💾 Journal saved to JSON.");
                     break;
 
                 case "4":
                     journal.LoadFromJson(filenameJson);
-                    Console.WriteLine("📂 Diário carregado.");
+                    Console.WriteLine("📂 Journal loaded.");
                     break;
 
                 case "5":
-                    Console.Write("Nome do arquivo CSV (ex: diario.csv): ");
-                    string arquivoCsv = Console.ReadLine();
-                    journal.SaveToCsv(arquivoCsv);
-                    Console.WriteLine("✅ Exportado para CSV.");
+                    Console.Write("CSV filename (e.g., journal.csv): ");
+                    string csvFile = Console.ReadLine();
+                    journal.SaveToCsv(csvFile);
+                    Console.WriteLine("✅ Exported to CSV.");
                     break;
 
                 case "6":
-                    Console.Write("Digite a palavra-chave: ");
-                    string palavra = Console.ReadLine();
-                    journal.SearchByKeyword(palavra);
+                    Console.Write("Enter keyword: ");
+                    string keyword = Console.ReadLine();
+                    journal.SearchByKeyword(keyword);
                     break;
 
                 case "7":
-                    Console.Write("Digite a data (yyyy-mm-dd): ");
-                    if (DateTime.TryParse(Console.ReadLine(), out DateTime data))
+                    Console.Write("Enter date (yyyy-mm-dd): ");
+                    if (DateTime.TryParse(Console.ReadLine(), out DateTime date))
                     {
-                        journal.SearchByDate(data);
+                        journal.SearchByDate(date);
                     }
                     else
                     {
-                        Console.WriteLine("❌ Data inválida.");
+                        Console.WriteLine("❌ Invalid date.");
                     }
                     break;
 
@@ -218,15 +268,15 @@ class Program
                     break;
 
                 case "0":
-                    sair = true;
+                    exit = true; // Set exit flag to true to end the loop
                     break;
 
                 default:
-                    Console.WriteLine("❌ Opção inválida.");
+                    Console.WriteLine("❌ Invalid option.");
                     break;
             }
         }
 
-        Console.WriteLine("👋 Até logo!");
+        Console.WriteLine("👋 Goodbye!");
     }
 }
