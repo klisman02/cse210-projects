@@ -1,0 +1,15 @@
+C:\Users\NOTE\Desktop\cse210-projects\week02\Journal\bin\Debug\net8.0\Journal.exe
+C:\Users\NOTE\Desktop\cse210-projects\week02\Journal\bin\Debug\net8.0\Journal.deps.json
+C:\Users\NOTE\Desktop\cse210-projects\week02\Journal\bin\Debug\net8.0\Journal.runtimeconfig.json
+C:\Users\NOTE\Desktop\cse210-projects\week02\Journal\bin\Debug\net8.0\Journal.dll
+C:\Users\NOTE\Desktop\cse210-projects\week02\Journal\bin\Debug\net8.0\Journal.pdb
+C:\Users\NOTE\Desktop\cse210-projects\week02\Journal\obj\Debug\net8.0\Journal.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\NOTE\Desktop\cse210-projects\week02\Journal\obj\Debug\net8.0\Journal.AssemblyInfoInputs.cache
+C:\Users\NOTE\Desktop\cse210-projects\week02\Journal\obj\Debug\net8.0\Journal.AssemblyInfo.cs
+C:\Users\NOTE\Desktop\cse210-projects\week02\Journal\obj\Debug\net8.0\Journal.csproj.CoreCompileInputs.cache
+C:\Users\NOTE\Desktop\cse210-projects\week02\Journal\obj\Debug\net8.0\Journal.sourcelink.json
+C:\Users\NOTE\Desktop\cse210-projects\week02\Journal\obj\Debug\net8.0\Journal.dll
+C:\Users\NOTE\Desktop\cse210-projects\week02\Journal\obj\Debug\net8.0\refint\Journal.dll
+C:\Users\NOTE\Desktop\cse210-projects\week02\Journal\obj\Debug\net8.0\Journal.pdb
+C:\Users\NOTE\Desktop\cse210-projects\week02\Journal\obj\Debug\net8.0\Journal.genruntimeconfig.cache
+C:\Users\NOTE\Desktop\cse210-projects\week02\Journal\obj\Debug\net8.0\ref\Journal.dll
